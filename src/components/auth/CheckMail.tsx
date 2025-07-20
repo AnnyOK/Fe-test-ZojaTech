@@ -4,7 +4,7 @@ import sendmail from '../../assets/sendmail.svg'
 const CheckMailCard: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => {
 	const email ='kelix2@gmail.com'
 	return (
-		<div className='text-center min-h-screen flex flex-col items-center justify-center bg-[#f8f9fb] px-4  min-w-[400px]'>
+		<div className='h-fit md:min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4  m-10 w-full md:min-w-[400px]'>
             <div className='bg-white shadow-xl rounded-xl p-8 w-full max-w-md flex flex-col justify-center items-center'>
 			<img src={sendmail} alt='email sent' width={100} height={100} className='align-center'/>
 
@@ -21,7 +21,7 @@ const CheckMailCard: React.FC<{switchView:(id:number)=>void}> = ({switchView}) =
 					account
 				</p>
 				{/* Sign up with email */}
-				<button className='w-full flex items-center justify-center border border-gray-300 px-4 py-3 rounded-md bg-orange-500 mb-4 text-white' onClick={()=>switchView(3)}>
+				<button className='w-full flex items-center justify-center border border-gray-300 px-4 py-3 rounded-md bg-orange-500 mb-4 text-white focus:outline-none focus:ring-1 focus:ring-orange-500 ' onClick={()=>switchView(3)}>
 					<span className='text-sm font-medium '>
 						Confirm Email
 					</span>

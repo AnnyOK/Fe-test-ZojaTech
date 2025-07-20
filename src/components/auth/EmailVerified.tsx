@@ -2,7 +2,7 @@ import React from 'react';
 import mailverified from '../../assets/emailverified.svg'
 const EmailVerified: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => {
 	return (
-		<div className='text-center min-h-screen flex flex-col items-center justify-center bg-[#f8f9fb] px-4  min-w-[400px]'>
+		<div className='text-center  flex-col h-fit md:min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4  m-10 w-full md:min-w-[400px]'>
             <div className='bg-white shadow-xl rounded-xl p-8 w-full max-w-md flex flex-col justify-center items-center'>
 			<img src={mailverified} alt='email verified' width={80} height={100} className='align-center'/>
 
@@ -13,7 +13,7 @@ const EmailVerified: React.FC<{switchView:(id:number)=>void}> = ({switchView}) =
 				The verified email address will be associated with your account. Click on the button below to continue
 				</p>
 				{/* Sign up with email */}
-				<button className='w-fit flex items-center justify-center text-white py-3 rounded-md bg-orange-400 mb-4 px-10' onClick={()=>switchView(6)}>
+				<button className='focus:outline-none focus:ring-1 focus:ring-orange-500 w-fit flex items-center justify-center text-white py-3 rounded-md bg-orange-400 mb-4 px-10' onClick={()=>switchView(6)}>
 					<span className='text-sm font-medium '>
 						Continue
 					</span>

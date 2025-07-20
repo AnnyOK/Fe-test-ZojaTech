@@ -48,7 +48,7 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 	const isFormValid = formik.isValid && formik.dirty;
 
 	return (
-		<div className='min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4 min-w-[400px]'>
+		<div className='h-fit md:min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4  m-10 w-full md:min-w-[400px]'>
 			<form
 				// onSubmit={formik.handleSubmit}
 				className='bg-white shadow-xl rounded-xl p-8 w-full max-w-md'
@@ -234,7 +234,7 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 						isFormValid
 							? 'bg-orange-500 hover:bg-orange-600 text-white'
 							: 'bg-gray-200 text-gray-500 cursor-not-allowed'
-					} transition `}
+					} transition focus:outline-none focus:ring-1 focus:ring-orange-500  `}
 					onClick={()=>formik.handleSubmit()}
 					disabled={!isFormValid}
 				>

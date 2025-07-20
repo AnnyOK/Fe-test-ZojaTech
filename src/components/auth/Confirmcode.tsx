@@ -62,7 +62,7 @@ const ConfirmCode: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => 
   };
 
 	return (
-		<div className='text-left min-h-screen flex flex-col items-center justify-center bg-[#f8f9fb] px-4  min-w-[400px]'>
+		<div className='text-left  flex-col h-fit md:min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4  m-10 w-full md:min-w-[400px]'>
             <div className='bg-white shadow-xl rounded-xl p-8 w-full max-w-md flex flex-col justify-center items-start'>
 
 				<h2 className='text-2xl font-semibold text-gray-900'>
@@ -90,7 +90,7 @@ const ConfirmCode: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => 
         </div>
 				{/* Sign up with email */}
 				<button 
-                className={` py-3 rounded-md text-white font-medium w-fit flex items-center justify-center  px-10  bg-orange-400 mb-4 ${
+                className={`focus:outline-none focus:ring-1 focus:ring-orange-500  py-3 rounded-md text-white font-medium w-fit flex items-center justify-center  px-10  bg-orange-400 mb-4 ${
                     otp.every((val) => val !== '')
                       ? 'bg-orange-300 hover:bg-orange-600'
                       : 'bg-gray-300 cursor-not-allowed'
