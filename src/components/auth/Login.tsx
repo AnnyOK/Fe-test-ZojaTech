@@ -7,8 +7,10 @@ import email from '../../assets/email.svg'
 import eyeopen from '../../assets/eyeopen.svg'
 import eyeclose from '../../assets/eyeclose.svg'
 import { useAuth } from '../../context/authContext';
+import { useNavigate } from 'react-router-dom';
 const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
     const [visible, toggle] = useState(false);
+    const navigate = useNavigate()
     const {login} = useAuth()
     const formik = useFormik({
         initialValues: {
@@ -30,6 +32,7 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
         }),
         onSubmit: async(values) => {
             login(values)
+            navigate('/dashboard')
             // console.log('Form submitted:', values);
         },
     });
