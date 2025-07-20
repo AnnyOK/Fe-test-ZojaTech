@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { api } from "./api";
 import axios from "axios";
 
 type RegisterDto={

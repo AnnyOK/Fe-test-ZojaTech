@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
+import React, { useState, useRef, type ChangeEvent } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import emorji from '../assets/emorji.svg'
 import microphone from '../assets/microphone.svg'
@@ -73,7 +73,7 @@ const SendNewMessage: React.FC = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files) {
-            setAttachedFiles((prev) => [...prev, ...Array.from(e.target.files)]);
+            setAttachedFiles((prev) => [...prev, ...Array.from(e.target.files!)]);
         }
     };
 

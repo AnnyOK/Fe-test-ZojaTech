@@ -75,12 +75,12 @@ const ConfirmCode: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => 
 					
 				</p>
                 <div className="flex justify-center gap-5 my-6">
-          {otp.map((digit, index) => (
+          {otp.map((_, index) => (
             <input
               key={index}
               type="text"
               maxLength={1}
-              ref={(el) => (inputs.current[index] = el)}
+              ref={(el) => {inputs.current[index] = el}}
               className="w-12 h-12 text-center border border-gray-300 rounded-md text-xl font-semibold focus:outline-none focus:ring-1 focus:ring-orange-300"
               onChange={(e) => handleChange(e.target.value, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}

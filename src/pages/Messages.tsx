@@ -9,7 +9,6 @@ import { format, isToday, isYesterday, differenceInCalendarDays, differenceInWee
 import { useCallback, useEffect, useState } from 'react';
 import { charts, messagelisrt } from '../helpers/mock';
 import SendNewMessage from '../components/SendNewMessage';
-import { object } from 'yup';
 
 interface ChatItem {
     sender: string;
@@ -262,6 +261,7 @@ const ChatMessage: React.FC<{ sender: string, message: string, time: string, con
         time: '10:25',
         messageCount: Math.floor(Math.random() * 10),
     };
+    console.log(time)
     return <div className={`${me.name === sender ? "self-end " : "self-start "}flex items-end max-w-[400px] min-w-[200px] gap-2`}>
         {me.name !== sender && <div className='min-w-[30px] min-h-[30px] w-6 h-6  mb-3'>
             <img

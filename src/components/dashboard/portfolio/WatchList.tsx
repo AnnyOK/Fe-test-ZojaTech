@@ -5,8 +5,6 @@ import down from '../../../assets/down.svg'
 import {
     LineChart,
     Line,
-    XAxis,
-    YAxis,
     CartesianGrid,
     Tooltip,
     ResponsiveContainer

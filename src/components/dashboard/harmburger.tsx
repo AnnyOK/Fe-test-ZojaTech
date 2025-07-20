@@ -1,5 +1,5 @@
 // components/MobileMenu.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // or use HeroIcons
 import { useNavigate } from 'react-router-dom';
 import profile from '../../assets/profile.svg';

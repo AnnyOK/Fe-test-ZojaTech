@@ -3,7 +3,6 @@ import search from '../../assets/search.svg'
 import plus from '../../assets/plus.svg'
 import notification from '../../assets/notification.svg'
 import Logo from '../Logo';
-import MobileMenu from './harmburger';
 const Header:React.FC<{title:string}> = ({title}) => {
     return (
         <div className='pt-20 p-4 text-black flex gap-4 md:p-10 md:flex-nowrap flex-wrap'>
