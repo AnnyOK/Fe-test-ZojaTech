@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import axios from "axios";
+import { api } from "./api";
 
 type loginDto={
     email:string;
@@ -7,9 +7,7 @@ type loginDto={
 }
 export const calllogin=async(data:loginDto)=>{
     try{
-        // const res= await api.post('/admin/login',data)
-const res= await axios.post('/api/admin/login',data)
-console.log(res)
+const res= await api.post('/api/admin/login',data)
 return res.data
     }catch(e:any){
 return toast.error('Failed to login')

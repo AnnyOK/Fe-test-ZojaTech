@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
         proxy: {
           '/api': {
-            target: 'https://fe-test.revvex.io/api',
+            target: 'https://fe-test.zojapay.com/api',
             changeOrigin: true,
             secure: false, // ← allows self-signed/invalid certificates
             rewrite: (path) => path.replace(/^\/api/, ''),

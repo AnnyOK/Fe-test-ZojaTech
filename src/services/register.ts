@@ -1,19 +1,17 @@
-import { toast } from "react-toastify";
-import axios from "axios";
+import { api } from "./api";
 
-type RegisterDto={
+type RegisterDto = {
 
     first_name: string;
     last_name: string;
-    email:string;
-    password:string
+    email: string;
+    password: string
 }
-export const register=async(data:RegisterDto)=>{
-    try{
-const res= await axios.post('/api/admin/register',data)
-console.log(res)
-return res.data
-    }catch(e:any){
-return toast.error('Failed to Register')
+export const register = async (data: RegisterDto) => {
+    try {
+        const res = await api.post('/api/admin/register', data)
+        return res.data
+    } catch (e: any) {
+        throw  new Error(String(e?.response?.data?.message||"Registration failed"))
     }
 }

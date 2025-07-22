@@ -1,12 +1,16 @@
-import { toast } from "react-toastify";
 import { api } from "./api";
 
 
-export const verifyOtp=async(otp:string)=>{
-    try{
-const res= await api.post('/admin/verify-otp',{otp})
-return res.data
-    }catch(e:any){
-return toast.error('Failed to login')
+export const verifyOtp = async (otp: string, token: string) => {
+
+    try {
+        const res = await api.post('/api/admin/verify-otp', { otp }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (e: any) {
+        throw new Error(String(e?.response?.data?.message || "Verificattion failed"))
     }
 }

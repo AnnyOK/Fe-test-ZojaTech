@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Notice from '../components/Notice';
 import SignUpCard from '../components/auth/Signup';
 import RegisterForm from '../components/auth/Register';
@@ -8,14 +8,27 @@ import ConfirmCode from '../components/auth/Confirmcode';
 import EmailVerified from '../components/auth/EmailVerified';
 import Login from '../components/auth/Login';
 import Logo from '../components/Logo';
+import { useAuth } from '../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [activeIndex, setActiveIndex] = useState(0)
+    const {auth} = useAuth()
+    const navigate = useNavigate()
+
     const switchView = (id: number) => {
         setActiveIndex(id)
     }
+    useEffect(()=>{
+        if(auth){
+            navigate('/dashboard')
+        }
+    },[auth])
+    if(auth){
+        return null
+    }
     return (
-        <div className='flex  md:flex-row h-[100vh] w-[100vw] m-0  relative flex-col-reverse'>
+        <div className='flex  md:flex-row h-[100vh] w-[100vw] m-0  relative flex-col-reverse '>
             <div className='absolute top-2 right-2 md:hidden'>
             <Logo/>
                 </div>

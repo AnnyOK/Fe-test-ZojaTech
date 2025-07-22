@@ -9,8 +9,11 @@ import lock from '../../assets/lock.svg'
 import eyeopen from '../../assets/eyeopen.svg'
 import eyeclose from '../../assets/eyeclose.svg'
 import { register } from '../../services/register';
-const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) => {
+import { useAuth } from '../../context/authContext';
+import { toast } from 'react-toastify';
+const RegisterForm: React.FC<{ switchView: (id: number) => void }> = ({ switchView }) => {
 	const [visible, toggle] = useState(false);
+	const { setUserLogin } = useAuth()
 	const formik = useFormik({
 		initialValues: {
 			firstName: '',
@@ -29,19 +32,33 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 				.email('Invalid email')
 				.required('Email is required'),
 			password: Yup.string()
-				.min(
-					6,
-					'Password must be at least 6 characters'
-				)
-				.required('Password is required'),
+				.min(8, 'Password must be at least 8 characters')
+				.matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+				.matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+				.matches(/[^a-zA-Z0-9]/, 'Password must contain at least one special character')
+				.required('Password is required')
 		}),
-		onSubmit: async(values) => {
-			await register({first_name:values.firstName,
-				last_name:values.lastName,
-				email:values.email,
-				password:values.password})
+		onSubmit: async (values) => {
+			try {
+				const res = await register({
+					first_name: values.firstName,
+					last_name: values.lastName,
+					email: values.email,
+					password: values.password
+				})
+				setUserLogin({
+					token: res.data.token,
+					first_name: values.firstName,
+					last_name: values.lastName,
+					email: values.email,
+					password: values.password
+				})
 				switchView(2)
-			console.log('Form submitted:', values);
+			} catch (e: any) {
+				return toast.error(e.message)
+
+			}
+
 		},
 	});
 
@@ -50,7 +67,6 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 	return (
 		<div className='h-fit md:min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4  m-10 w-full md:min-w-[400px]'>
 			<form
-				// onSubmit={formik.handleSubmit}
 				className='bg-white shadow-xl rounded-xl p-8 w-full max-w-md'
 			>
 				<h2 className='text-2xl font-semibold text-gray-800 mb-1'>
@@ -135,8 +151,8 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 				{/* Email */}
 				<div className='mb-4'>
 					<div className='relative'>
-                    <img src={email} alt='email' className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
-                    <input
+						<img src={email} alt='email' className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
+						<input
 							type='email'
 							name='email'
 							placeholder='Work email'
@@ -152,12 +168,12 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 									.email
 							}
 						/>
-                        {formik.touched.email &&
-						!formik.errors.email && (
-							<img src={tick} alt='good'
-								
-								className='absolute right-4 top-3'
-							/>)}
+						{formik.touched.email &&
+							!formik.errors.email && (
+								<img src={tick} alt='good'
+
+									className='absolute right-4 top-3'
+								/>)}
 					</div>
 					{formik.touched.email &&
 						formik.errors.email && (
@@ -174,8 +190,8 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 				{/* Password */}
 				<div className='mb-6'>
 					<div className='relative'>
-                    <img src={lock} alt='lock' className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
-                    <input
+						<img src={lock} alt='lock' className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
+						<input
 							type={
 								!visible
 									? 'password'
@@ -196,24 +212,24 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 							}
 						/>
 						{visible ? (
-                                                <img src={eyeopen} alt='eyeopen' className='  text-gray-400 w-4 h-4 absolute right-4 top-3' 
+							<img src={eyeopen} alt='eyeopen' className='  text-gray-400 w-4 h-4 absolute right-4 top-3'
 
-                                onClick={() =>
-                                    toggle(
-                                        !visible
-                                    )
-                                }
-                            />
-                        ) : (
-                            <img src={eyeclose} alt='eyeopen' className='    text-gray-400 w-4 h-4 absolute right-4 top-3' 
+								onClick={() =>
+									toggle(
+										!visible
+									)
+								}
+							/>
+						) : (
+							<img src={eyeclose} alt='eyeopen' className='    text-gray-400 w-4 h-4 absolute right-4 top-3'
 
-                            onClick={() =>
-                                toggle(
-                                    !visible
-                                )
-                            }
-                        />
-                        )}
+								onClick={() =>
+									toggle(
+										!visible
+									)
+								}
+							/>
+						)}
 					</div>
 					{formik.touched.password &&
 						formik.errors.password && (
@@ -230,12 +246,11 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 				{/* Submit */}
 				<button
 					type='button'
-					className={`w-full py-3 rounded-md  font-medium ${
-						isFormValid
-							? 'bg-orange-500 hover:bg-orange-600 text-white'
-							: 'bg-gray-200 text-gray-500 cursor-not-allowed'
-					} transition focus:outline-none focus:ring-1 focus:ring-orange-500  `}
-					onClick={()=>formik.handleSubmit()}
+					className={`w-full py-3 rounded-md  font-medium ${isFormValid
+						? 'bg-orange-500 hover:bg-orange-600 text-white'
+						: 'bg-gray-200 text-gray-500 cursor-not-allowed'
+						} transition focus:outline-none focus:ring-1 focus:ring-orange-500  `}
+					onClick={() => formik.handleSubmit()}
 					disabled={!isFormValid}
 				>
 					Create account
@@ -243,7 +258,7 @@ const RegisterForm: React.FC <{switchView:(id:number)=>void}> = ({switchView}) =
 				<TermsandCondition />
 				<p className='text-left text-sm text-gray-600 mt-4 '>
 					Already have an account?{' '}
-					<span onClick={()=>switchView(6)}><a
+					<span onClick={() => switchView(6)}><a
 						href='#'
 						className='text-orange-500 hover:underline font-medium'
 					>

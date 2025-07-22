@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import sendmail from '../../assets/sendmail.svg'
+import { useAuth } from '../../context/authContext';
+import { resendOtp } from '../../services/resendOtp';
 const CheckMailCard: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => {
-	const email ='kelix2@gmail.com'
+	const {userLogin} =useAuth()
+	const {email,token}= userLogin
+	
 	return (
 		<div className='h-fit md:min-h-screen flex items-center justify-center bg-[#f8f9fb] px-4  m-10 w-full md:min-w-[400px]'>
             <div className='bg-white shadow-xl rounded-xl p-8 w-full max-w-md flex flex-col justify-center items-center'>
@@ -30,12 +33,15 @@ const CheckMailCard: React.FC<{switchView:(id:number)=>void}> = ({switchView}) =
 				{/* Already have account */}
 				<p className='text-sm text-gray-700 mt-6 text-center'>
 					Didn't get the mail?{' '}
-					<Link
-						to='/resend'
+					<span
+					onClick={async (e) => {
+						e.preventDefault(); // 🚫 prevent form submission or page reload
+						if (email) await resendOtp(email,token);
+					  }}
 						className='text-orange-500 hover:underline font-medium'
 					>
 						Resend
-					</Link>
+					</span>
 				</p>
 			</div>
 		</div>

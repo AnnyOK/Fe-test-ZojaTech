@@ -1,8 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
+import { verifyOtp } from '../../services/verifyOtp';
+import { toast } from 'react-toastify';
 const ConfirmCode: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => {
     const length = 4;
-    const email= 'kelix2@gmail.com'
+    const {userLogin}= useAuth()
+    const {email,token}= userLogin
   const [otp, setOtp] = useState<string[]>(Array(length).fill(''));
   const inputs = useRef<Array<HTMLInputElement | null>>([]);
 
@@ -13,12 +17,10 @@ const ConfirmCode: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => 
     updatedOtp[index] = value;
     setOtp(updatedOtp);
 
-    // Move to next input
     if (value && index < length - 1) {
       inputs.current[index + 1]?.focus();
     }
 
-    // If complete, you can trigger submission
     if (updatedOtp.every((digit) => digit !== '')) {
       handleSubmit(updatedOtp.join(''));
     }
@@ -54,11 +56,15 @@ const ConfirmCode: React.FC<{switchView:(id:number)=>void}> = ({switchView}) => 
     }
   };
 
-  const handleSubmit = (finalOtp: string) => {
-    console.log('Submitted OTP:', finalOtp);
-    switchView(4)
-    console.log('execute')
-    // Trigger actual verification logic here
+  const handleSubmit = async(finalOtp: string) => {
+    try{
+      await verifyOtp(finalOtp,token)
+      toast.success("Email verified")
+      switchView(4)
+    }catch(e:any){
+      toast.error(e.message)
+    }
+   
   };
 
 	return (

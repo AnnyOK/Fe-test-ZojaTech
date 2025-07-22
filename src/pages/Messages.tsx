@@ -131,7 +131,7 @@ const Messages = () => {
                     </div>
                 </aside>
                 <main className='col-span-5  bg-gray-100 rounded-2xl p-10'>
-                    {Object.keys(conversation).length>0 ?(<><div className='flex  col-span-6 h-20 justify-between p-3 gap-4'>
+                    {Object.keys(conversation).length > 0 ? (<><div className='flex  col-span-6 h-20 justify-between p-3 gap-4'>
                         <div className='flex  flex-1 justify-items-start items-center '>
                             <div className='w-12 h-12  mb-3'>
                                 <img
@@ -164,26 +164,25 @@ const Messages = () => {
                             className='p-3'
                         />
                     </div>
-                    <hr className='col-span-6 text-gray-300' />
-                    <div className='max-h-[50vh] overflow-y-auto'>
-                        {Object.entries(groupedChats).map(([label, messages]) => (
-                            <div key={label} className='flex flex-col py-4'>
-                                <div className="text-center text-sm text-gray-300 mb-2 items-center flex gap-4 "><hr className='flex-1' />{label}<hr className='flex-1' /></div>
-                                {messages.map((item, idx) => (
-                                    <ChatMessage
-                                        key={idx}
-                                        sender={item.sender}
-                                        message={item.message}
-                                        time={item.timestamp}
-                                        conversation={conversation}
-                                    />
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                    <SendNewMessage />
-</>):<div> Select a conversation to start</div>}
-                    {/* <div className='flex flex-col py-4'>{charts.map((item,idx)=><ChatMessage key={idx} sender={item.sender} message={item.message} time={item.timestamp}conversation={conversation} />)}</div> */}
+                        <hr className='col-span-6 text-gray-300' />
+                        <div className='max-h-[50vh] overflow-y-auto'>
+                            {Object.entries(groupedChats).map(([label, messages]) => (
+                                <div key={label} className='flex flex-col py-4'>
+                                    <div className="text-center text-sm text-gray-300 mb-2 items-center flex gap-4 "><hr className='flex-1' />{label}<hr className='flex-1' /></div>
+                                    {messages.map((item, idx) => (
+                                        <ChatMessage
+                                            key={idx}
+                                            sender={item.sender}
+                                            message={item.message}
+                                            time={item.timestamp}
+                                            conversation={conversation}
+                                        />
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                        <SendNewMessage />
+                    </>) : <div> Select a conversation to start</div>}
 
                 </main>
             </section>

@@ -17,53 +17,6 @@ const SendNewMessage: React.FC = () => {
     const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
     const [recording, setRecording] = useState<boolean>(false);
     const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
-
-
-
-    // const videoRef = useRef<HTMLVideoElement>(null);
-    // const canvasRef = useRef<HTMLCanvasElement>(null);
-    // const [stream, setStream] = useState<MediaStream | null>(null);
-    // const [photo, setPhoto] = useState<string | null>(null);
-  
-    // useEffect(() => {
-    //   // Request camera access when component mounts
-    //   const getCamera = async () => {
-    //     try {
-    //       const mediaStream = await navigator.mediaDevices.getUserMedia({
-    //         video: true,
-    //         audio: false, // set to true if recording audio
-    //       });
-    //       setStream(mediaStream);
-    //       if (videoRef.current) {
-    //         videoRef.current.srcObject = mediaStream;
-    //       }
-    //     } catch (err) {
-    //       console.error('Error accessing camera:', err);
-    //     }
-    //   };
-  
-    //   getCamera();
-  
-    //   return () => {
-    //     // Cleanup on unmount
-    //     stream?.getTracks().forEach((track) => track.stop());
-    //   };
-    // }, []);
-  
-    // const takeSnapshot = () => {
-    //   if (!canvasRef.current || !videoRef.current) return;
-    //   const ctx = canvasRef.current.getContext('2d');
-    //   if (!ctx) return;
-  
-    //   // Set canvas dimensions to video stream
-    //   canvasRef.current.width = videoRef.current.videoWidth;
-    //   canvasRef.current.height = videoRef.current.videoHeight;
-    //   ctx.drawImage(videoRef.current, 0, 0);
-    //   const imageData = canvasRef.current.toDataURL('image/png');
-    //   setPhoto(imageData);
-    // };
-  
-
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]);
 
@@ -113,11 +66,7 @@ const SendNewMessage: React.FC = () => {
             files: attachedFiles,
             audio: audioBlob,
         };
-
-        console.log('Sending payload:', payload);
-        // TODO: Send to backend
-
-        // Reset state
+        console.log(payload)
         setMessage('');
         setAttachedFiles([]);
         setAudioBlob(null);

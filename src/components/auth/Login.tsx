@@ -7,19 +7,18 @@ import email from '../../assets/email.svg'
 import eyeopen from '../../assets/eyeopen.svg'
 import eyeclose from '../../assets/eyeclose.svg'
 import { useAuth } from '../../context/authContext';
-import { useNavigate } from 'react-router-dom';
-const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
+import { toast } from 'react-toastify';
+const Login: React.FC<{ switchView: (id: number) => void }> = ({ switchView }) => {
     const [visible, toggle] = useState(false);
-    const navigate = useNavigate()
-    const {login} = useAuth()
+    const { login } = useAuth()
     const formik = useFormik({
         initialValues: {
-           
+
             email: '',
             password: '',
         },
         validationSchema: Yup.object({
-           
+
             email: Yup.string()
                 .email('Invalid email')
                 .required('Email is required'),
@@ -30,10 +29,13 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
                 )
                 .required('Password is required'),
         }),
-        onSubmit: async(values) => {
-            login(values)
-            navigate('/dashboard')
-            // console.log('Form submitted:', values);
+        onSubmit: async (values) => {
+            try {
+                await login(values)
+            } catch (e) {
+                toast.error("Login Failed")
+            }
+
         },
     });
 
@@ -56,8 +58,8 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
                 {/* Email */}
                 <div className='mb-4'>
                     <div className='relative'>
-                    <img src={email} alt='lock' className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
-                    <input
+                        <img src={email} alt='lock' className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
+                        <input
                             type='email'
                             name='email'
                             placeholder='Work email'
@@ -73,12 +75,7 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
                                     .email
                             }
                         />
-                        {/* {formik.touched.email &&
-                        !formik.errors.email && (
-                            <img src={tick} alt='good'
-                                
-                                className='absolute right-4 top-3'
-                            />)} */}
+                       
                     </div>
                     {formik.touched.email &&
                         formik.errors.email && (
@@ -117,7 +114,7 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
                             }
                         />
                         {visible ? (
-                                                <img src={eyeopen} alt='eyeopen' className='  text-gray-400 w-4 h-4 absolute right-4 top-3' 
+                            <img src={eyeopen} alt='eyeopen' className='  text-gray-400 w-4 h-4 absolute right-4 top-3'
 
                                 onClick={() =>
                                     toggle(
@@ -126,14 +123,14 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
                                 }
                             />
                         ) : (
-                            <img src={eyeclose} alt='eyeopen' className='    text-gray-400 w-4 h-4 absolute right-4 top-3' 
+                            <img src={eyeclose} alt='eyeopen' className='    text-gray-400 w-4 h-4 absolute right-4 top-3'
 
-                            onClick={() =>
-                                toggle(
-                                    !visible
-                                )
-                            }
-                        />
+                                onClick={() =>
+                                    toggle(
+                                        !visible
+                                    )
+                                }
+                            />
                         )}
                     </div>
                     {formik.touched.password &&
@@ -152,19 +149,18 @@ const Login: React.FC<{switchView:(id:number)=>void}> = ({switchView})=> {
                 <button
                     type='button'
                     disabled={!isFormValid}
-onClick={()=>formik.handleSubmit()}
-                    className={` ${
-                        isFormValid
+                    onClick={() => formik.handleSubmit()}
+                    className={` ${isFormValid
                             ? 'bg-orange-500 hover:bg-orange-600 text-white'
                             : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                    } w-full py-3 rounded-md  font-medium transition focus:outline-none focus:ring-1 focus:ring-orange-500 0`}
+                        } w-full py-3 rounded-md  font-medium transition focus:outline-none focus:ring-1 focus:ring-orange-500 0`}
                 >
                     Login
                 </button>
                 <TermsandCondition />
                 <p className='text-left text-sm text-gray-600 mt-4 '>
                     Don't have account?{' '}
-                    <span onClick={()=>switchView(1)}><a
+                    <span onClick={() => switchView(1)}><a
                         href='#'
                         className='text-orange-500 hover:underline font-medium'
                     >

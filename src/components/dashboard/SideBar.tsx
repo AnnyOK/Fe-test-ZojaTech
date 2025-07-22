@@ -12,12 +12,14 @@ import pack2 from '../../assets/pack_i.svg';
 import messages2 from '../../assets/messages_i.svg';
 import analytics from '../../assets/analytics.svg';
 import analytics2 from '../../assets/analytics_i.svg';
-import logout from '../../assets/logout.svg';
+import logoutIcon from '../../assets/logout.svg';
 import user2 from '../../assets/user_i.svg';
 import profile from '../../assets/profile.svg';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext';
 const SideBar = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
+	const {logout} = useAuth()
     const navigate = useNavigate()
 	const handleActive = (id: number) => {
 		setActiveIndex(id);
@@ -103,8 +105,8 @@ handleRouting()
 				/>
 				<h2 className='font-bold'>Theresa Milly</h2>
 				<p className='text-gray-500'>Influencer</p>
-				<button className='flex  gap-2 m-2 text-orange-400 bg-orange-100 '>
-					<img src={logout} alt='logout' /> Logout
+				<button className='flex  gap-2 m-2 text-orange-400 bg-orange-100 ' onClick={()=>logout()}>
+					<img src={logoutIcon} alt='logout' /> Logout
 				</button>
 			</div>
 		</div>

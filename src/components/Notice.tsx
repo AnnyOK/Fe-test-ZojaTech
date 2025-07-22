@@ -3,7 +3,7 @@ import Logo from './Logo';
 import check from '../assets/check_cirle.svg'
 const Notice:React.FC<any> = (props) => {
     return (
-        <div className ={`${props.className} bg-white h-[100%] w-full md:w-[50%] p-[100px]  md:p-[50px] 2xl:p-[100px] flex flex-col justify-between`}>
+        <div className ={`${props.className} bg-white  md:h-[100%] w-full md:w-[50%] p-4 sm:p-[100px]  md:px-[50px] sm:py-4 2xl:p-[100px] flex flex-col justify-between`}>
             <div className='hidden md:block'>
             <Logo/>
 
