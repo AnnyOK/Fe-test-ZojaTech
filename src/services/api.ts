@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
+const baseURL = import.meta.env.PROD
+  ? 'https://fe-test.zojapay.com/'
+  : '/'; // this works in development due to Vite proxy
 
 const api = axios.create({
-  baseURL: '/', //import.meta.env.VITE_API_URL,
+  baseURL
 })
 
 api.interceptors.request.use(function (config: any) {
